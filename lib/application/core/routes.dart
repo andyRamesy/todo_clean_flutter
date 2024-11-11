@@ -7,6 +7,7 @@ final GlobalKey<NavigatorState> _rootNavigatorKey =
 
 final routes = GoRouter(
   initialLocation: '/home/start',
+  navigatorKey: _rootNavigatorKey,
   observers: <NavigatorObserver>[GoRouterObserver()],
   routes: [
     GoRoute(
@@ -15,13 +16,19 @@ final routes = GoRouter(
         return Container(
           color: Colors.amber,
           child: Column(
-            key: _rootNavigatorKey,
             children: [
               ElevatedButton(
                   onPressed: () => context.go('/home/start'),
                   child: const Text('Go to start')),
               TextButton(
-                  onPressed: () => context.pop(), child: const Text('Go back'))
+                  onPressed: () {
+                    if (context.canPop()) {
+                      context.pop();
+                    } else {
+                      context.go("/home/start");
+                    }
+                  },
+                  child: const Text('Go back'))
             ],
           ),
         );
@@ -33,13 +40,19 @@ final routes = GoRouter(
         return Container(
           color: Colors.blueGrey,
           child: Column(
-            key: _rootNavigatorKey,
             children: [
               ElevatedButton(
                   onPressed: () => context.go('/home/settings'),
                   child: const Text('Go to settings')),
               TextButton(
-                  onPressed: () => context.pop(), child: const Text('Go back'))
+                  onPressed: () {
+                    if (context.canPop()) {
+                      context.pop();
+                    } else {
+                      context.go("/home/settings");
+                    }
+                  },
+                  child: const Text('Go back'))
             ],
           ),
         );
