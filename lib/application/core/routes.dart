@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_clean/application/core/go_router_observer.dart';
+import 'package:todo_clean/application/pages/home/home_page.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
 
+final GlobalKey<NavigatorState> _shellNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'shell');
+
 final routes = GoRouter(
-  initialLocation: '/home/start',
+  initialLocation: '/home',
   navigatorKey: _rootNavigatorKey,
   observers: <NavigatorObserver>[GoRouterObserver()],
   routes: [
@@ -33,6 +37,16 @@ final routes = GoRouter(
           ),
         );
       },
+    ),
+    ShellRoute(
+      navigatorKey: _shellNavigatorKey,
+      builder: (context, state, child) => child,
+      routes: [
+        GoRoute(
+          path: '/home',
+          builder: (context, state) => const HomePage(),
+        ),
+      ],
     ),
     GoRoute(
       path: '/home/start',

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:todo_clean/application/core/page_config.dart';
 
 class DashboardPage extends StatelessWidget {
-  static var pageConfig;
-
   const DashboardPage({super.key});
 
-
+  static const pageConfig = PageConfig(
+    icon: Icons.dashboard_rounded,
+    name: 'dashboard',
+    child: DashboardPage(),
+  );
 
   @override
   Widget build(BuildContext context) {
