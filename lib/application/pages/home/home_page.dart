@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
+import 'package:go_router/go_router.dart';
 import 'package:todo_clean/application/pages/dashboard/dashboard_page.dart';
 import 'package:todo_clean/application/pages/overview/overview_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final int index;
+
+  HomePage({super.key, required String tab})
+      : index = tabs.indexWhere((element) => element.name == tab);
 
   static var tabs = [
     DashboardPage.pageConfig,
@@ -33,11 +37,14 @@ class _HomePageState extends State<HomePage> {
             key: const Key('primary-navigation-medium'),
             builder: (context) => AdaptiveScaffold.standardNavigationRail(
                 selectedIconTheme:
-                    IconThemeData(color: theme.colorScheme.onBackground),
+                    IconThemeData(color: theme.colorScheme.onSurface),
                 selectedLabelTextStyle:
-                    TextStyle(color: theme.colorScheme.onBackground),
-                    unselectedIconTheme: IconThemeData(color: theme.colorScheme.onBackground.withOpacity(0.5)),
-                onDestinationSelected: (p0) => debugPrint('tap $p0 selected'),
+                    TextStyle(color: theme.colorScheme.onSurface),
+                selectedIndex: widget.index,
+                unselectedIconTheme: IconThemeData(
+                    color: theme.colorScheme.onSurface.withOpacity(0.5)),
+                onDestinationSelected: (value) =>
+                    _tapOnNavigationDestination(context, value),
                 destinations: destination
                     .map((_) => AdaptiveScaffold.toRailDestination(_))
                     .toList()),
@@ -47,13 +54,27 @@ class _HomePageState extends State<HomePage> {
           Breakpoints.small: SlotLayout.from(
             key: const Key('bottom-navigation-small'),
             builder: (context) => AdaptiveScaffold.standardBottomNavigationBar(
-              destinations: destination,
-              onDestinationSelected: (value) =>
-                  debugPrint('bottom tap on $value'),
-            ),
+                destinations: destination,
+                onDestinationSelected: (value) =>
+                    _tapOnNavigationDestination(context, value),
+                currentIndex: widget.index),
           ),
+        }),
+        body: SlotLayout(config: <Breakpoint, SlotLayoutConfig>{
+          Breakpoints.smallAndUp: SlotLayout.from(
+            key: const Key('primary-body-small'),
+            builder: (context) => HomePage.tabs[widget.index].child,
+          ),
+        }),
+        secondaryBody: SlotLayout(config: <Breakpoint, SlotLayoutConfig>{
+          Breakpoints.mediumAndUp: SlotLayout.from(
+              key: const Key('secondary-body-medium'),
+              builder: AdaptiveScaffold.emptyBuilder)
         }),
       )),
     );
   }
+
+  void _tapOnNavigationDestination(BuildContext context, int index) =>
+      context.go('/home/${HomePage.tabs[index].name}');
 }
