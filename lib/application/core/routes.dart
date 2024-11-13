@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_clean/application/core/go_router_observer.dart';
 import 'package:todo_clean/application/pages/home/home_page.dart';
+import 'package:todo_clean/application/pages/settings/settings_page.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
@@ -15,6 +16,7 @@ final routes = GoRouter(
   observers: <NavigatorObserver>[GoRouterObserver()],
   routes: [
     GoRoute(
+      name: SettingsPage.pageConfig.name,
       path: '/home/settings',
       builder: (context, state) {
         return Container(
