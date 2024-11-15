@@ -1,12 +1,25 @@
-import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-part 'todo_overview_cubit.dart';
+part of 'todo_overview_cubit.dart';
 
 class TodoOverviewCubitState extends Equatable {
   const TodoOverviewCubitState();
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [];
+  List<Object> get props => [];
+}
+
+class TodoOverviewCubitLoadingState extends TodoOverviewCubitState{
+
+}
+
+class TodoOverviewCubitErrorState extends TodoOverviewCubitState {}
+
+class TodoOverviewCubitLoadedState extends TodoOverviewCubitState {
+  final List<TodoCollection> collections;
+
+  const TodoOverviewCubitLoadedState({
+    required this.collections
+  });
+  
+  @override
+  List<Object> get props => [collections];
 }
