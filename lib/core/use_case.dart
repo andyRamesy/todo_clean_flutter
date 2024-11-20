@@ -15,29 +15,25 @@ class NoParams extends Params {
 }
 
 class TodoEntryIdParam extends Params {
-  final EntryId entryId;
+   EntryId? entryId;
   final CollectionId collectionId;
 
-  TodoEntryIdParam({
+  TodoEntryIdParam(this.entryId,{
     required this.collectionId,
-    required this.entryId,
+     
   }) : super();
 
   @override
-  // TODO: implement props
   List<Object?> get props => [collectionId, entryId];
 }
 
 class CollectionIdParam extends Params {
-  final EntryId entryId;
   final CollectionId collectionId;
 
   CollectionIdParam({
     required this.collectionId,
-    required this.entryId,
   }) : super();
 
   @override
-  // TODO: implement props
-  List<Object?> get props => [collectionId, entryId];
+  List<Object?> get props => [collectionId];
 }

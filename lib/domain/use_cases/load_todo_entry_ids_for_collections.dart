@@ -14,7 +14,7 @@ class LoadTodoEntryIdsForCollections implements UseCase<List<EntryId>, Collectio
   @override
   Future<Either<Failure, List<EntryId>>> call(CollectionIdParam params) async {
     try {
-      final loadedIds = todoRepository.readTodoEntryIds(
+      final loadedIds = await todoRepository.readTodoEntryIds(
         params.collectionId
       );
       return loadedIds.fold((left) => Left(left), (right) => Right(right));

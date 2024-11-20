@@ -10,6 +10,7 @@ abstract class TodoRepository {
     CollectionId collectionId,
     EntryId entryId,
   );
+  
   Future<Either<Failure, List<EntryId>>> readTodoEntryIds(
       CollectionId collectionId);
 }

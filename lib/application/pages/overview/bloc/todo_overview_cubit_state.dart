@@ -8,10 +8,12 @@ class TodoOverviewCubitState extends Equatable {
 }
 
 class TodoOverviewCubitLoadingState extends TodoOverviewCubitState{
-
+const TodoOverviewCubitLoadingState();
 }
 
-class TodoOverviewCubitErrorState extends TodoOverviewCubitState {}
+class TodoOverviewCubitErrorState extends TodoOverviewCubitState {
+  const TodoOverviewCubitErrorState();
+}
 
 class TodoOverviewCubitLoadedState extends TodoOverviewCubitState {
   final List<TodoCollection> collections;
