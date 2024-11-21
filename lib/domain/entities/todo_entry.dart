@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:todo_clean/domain/entities/unique_id.dart';
 
-class TodoEntry {
+class TodoEntry extends Equatable{
   final String description;
   final bool isDone;
   final EntryId id;
@@ -15,4 +16,7 @@ class TodoEntry {
       id: EntryId(),
     );
   }
+  
+  @override
+  List<Object?> get props => [id,isDone,description];
 }
