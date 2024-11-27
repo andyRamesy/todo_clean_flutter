@@ -18,8 +18,8 @@ class TodoEntryIdParam extends Params {
    EntryId? entryId;
   final CollectionId collectionId;
 
-  TodoEntryIdParam(this.entryId,{
-    required this.collectionId,
+  TodoEntryIdParam({
+    required this.collectionId, required EntryId entryId,
      
   }) : super();
 

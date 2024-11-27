@@ -3,14 +3,17 @@ import 'package:todo_clean/domain/entities/todo_entry.dart';
 
 class TodoEntryItemLoaded extends StatelessWidget {
   final TodoEntry entryItem;
+  final Function(bool?) onChanged;
 
-  const TodoEntryItemLoaded({super.key, required this.entryItem});
+  const TodoEntryItemLoaded({super.key, required this.entryItem, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
     return CheckboxListTile(
       title: Text(entryItem.description),
-      onChanged: (value) {},
+      onChanged: (value) {
+        print("value : $value");
+      },
       value: entryItem.isDone,
     );
   }
