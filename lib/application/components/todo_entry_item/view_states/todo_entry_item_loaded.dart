@@ -11,10 +11,8 @@ class TodoEntryItemLoaded extends StatelessWidget {
   Widget build(BuildContext context) {
     return CheckboxListTile(
       title: Text(entryItem.description),
-      onChanged: (value) {
-        print("value : $value");
-      },
       value: entryItem.isDone,
+      onChanged: onChanged,
     );
   }
 }

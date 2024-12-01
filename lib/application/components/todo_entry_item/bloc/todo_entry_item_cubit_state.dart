@@ -11,11 +11,19 @@ abstract class TodoEntryItemState extends Equatable{
   List<Object?> get props => [];
 }
 
-class ToDoEntryItemLoadingState extends TodoEntryItemState{}
-class ToDoEntryItemErrorState extends TodoEntryItemState{}
+class ToDoEntryItemLoadingState extends TodoEntryItemState{
+  
+}
+
+class ToDoEntryItemErrorState extends TodoEntryItemState{
+
+}
+
 class ToDoEntryItemLoadedState extends TodoEntryItemState{
+  const ToDoEntryItemLoadedState({required this.toDoEntry});
 
   final TodoEntry toDoEntry;
 
-  const ToDoEntryItemLoadedState({required this.toDoEntry});
+  @override
+  List<Object?> get props => [toDoEntry];
 }

@@ -21,6 +21,7 @@ class TodoDetailCubit extends Cubit<TodoDetailCubitState> {
     try {
       final entryIds = await loadTodoEntryIdsForCollections
           .call(CollectionIdParam(collectionId: collectionId));
+          
       if (entryIds.isLeft) {
         emit(TodoDetailCubitErrorState());
       } else {

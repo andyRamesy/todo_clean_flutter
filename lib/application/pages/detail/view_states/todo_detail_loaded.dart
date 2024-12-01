@@ -5,6 +5,7 @@ import 'package:todo_clean/domain/entities/unique_id.dart';
 class TodoDetailLoaded extends StatelessWidget {
   final List<EntryId> entryIds;
   final CollectionId collectionId;
+  
   const TodoDetailLoaded({
     super.key,
     required this.entryIds,
@@ -18,8 +19,7 @@ class TodoDetailLoaded extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: ListView.builder(
           itemCount: entryIds.length,
-          itemBuilder: (context, index) => TodoEntryItemProvider(
-              collectionId: collectionId, entryId: entryIds[index]),
+          itemBuilder: (context, index) => ListTile(title: Text(index.toString()),),
         ),
       ),
     );

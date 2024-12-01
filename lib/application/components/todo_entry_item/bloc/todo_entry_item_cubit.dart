@@ -1,4 +1,3 @@
-import 'package:either_dart/either.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_clean/core/use_case.dart';
@@ -15,22 +14,27 @@ class TodoEntryItemCubit extends Cubit<TodoEntryItemState> {
   final LoadTodoEntry loadTodoEntry;
   final UpdateTodoEntry updateTodoEntry;
 
-  TodoEntryItemCubit(
-      {required this.entryId,
-      required this.collectionId,
-      required this.loadTodoEntry,
-      required this.updateTodoEntry})
-      : super(ToDoEntryItemLoadingState());
+  TodoEntryItemCubit({
+    required this.entryId,
+    required this.collectionId,
+    required this.loadTodoEntry,
+    required this.updateTodoEntry,
+  }) : super(ToDoEntryItemLoadingState());
 
   Future<void> fetch() async {
     try {
-      final entry = await loadTodoEntry
-          .call(TodoEntryIdParam(entryId: entryId, collectionId: collectionId));
+      final entry = await loadTodoEntry.call(
+        TodoEntryIdParam(
+          entryId: entryId,
+          collectionId: collectionId,
+        ),
+      );
+
       return entry.fold(
         (left) => emit(ToDoEntryItemErrorState()),
         (right) => emit(ToDoEntryItemLoadedState(toDoEntry: right)),
       );
-    } on Exception catch (e) {
+    } on Exception {
       emit(ToDoEntryItemErrorState());
     }
   }

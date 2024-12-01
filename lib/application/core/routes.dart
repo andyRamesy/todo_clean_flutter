@@ -79,7 +79,7 @@ final routes = GoRouter(
                 }
               },
             ),
-          ),
+          ), 
           body: TodoDetailPageProvider(
               collectionId: CollectionId.fromUniqueString(
                   state.pathParameters['collectionsId'] ?? "")),

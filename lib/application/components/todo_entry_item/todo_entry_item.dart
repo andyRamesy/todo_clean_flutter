@@ -4,6 +4,7 @@ import 'package:todo_clean/application/components/todo_entry_item/bloc/todo_entr
 import 'package:todo_clean/domain/entities/unique_id.dart';
 import 'package:todo_clean/domain/repositories/todo_repository.dart';
 import 'package:todo_clean/domain/use_cases/load_todo_entry.dart';
+import 'package:todo_clean/domain/use_cases/update_todo_entry.dart';
 
 import 'view_states/todo_entry_item_error.dart';
 import 'view_states/todo_entry_item_loaded.dart';
@@ -23,7 +24,10 @@ class TodoEntryItemProvider extends StatelessWidget {
           entryId: entryId,
           collectionId: collectionId,
           loadTodoEntry: LoadTodoEntry(
-              todoRepository: RepositoryProvider.of<TodoRepository>(context)))..fetch(),
+              todoRepository: RepositoryProvider.of<TodoRepository>(context)),
+          updateTodoEntry: UpdateTodoEntry(
+              todoRepository: RepositoryProvider.of<TodoRepository>(context)))
+        ..fetch(),
       child: const TodoEntryItem(),
     );
   }
@@ -34,14 +38,19 @@ class TodoEntryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TodoEntryItemCubit, TodoEntryItemState>(builder:(context, state) {
-      if(state is ToDoEntryItemLoadingState){
-        return const TodoEntryItemLoading();
-      }else if (state is ToDoEntryItemLoadedState){
-        return TodoEntryItemLoaded(entryItem: state.toDoEntry,);
-      }else {
-        return const TodoEntryItemError();
-      }
-    } ,);
+    return BlocBuilder<TodoEntryItemCubit, TodoEntryItemState>(
+      builder: (context, state) {
+        if (state is ToDoEntryItemLoadingState) {
+          return const TodoEntryItemLoading();
+        } else if (state is ToDoEntryItemLoadedState) {
+          return TodoEntryItemLoaded(
+            entryItem: state.toDoEntry,
+            onChanged: (value) => context.read<TodoEntryItemCubit>().update(),
+          );
+        } else {
+          return const TodoEntryItemError();
+        }
+      },
+    );
   }
 }

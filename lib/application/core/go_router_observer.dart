@@ -15,7 +15,7 @@ class GoRouterObserver extends NavigatorObserver {
   @override
   void didRemove(Route route, Route? previousRoute) {
           debugPrint(
-        'didRemove ${route?.settings.name} previous route: ${previousRoute?.settings.name}');
+        'didRemove ${route.settings.name} previous route: ${previousRoute?.settings.name}');
   }
 
   @override
