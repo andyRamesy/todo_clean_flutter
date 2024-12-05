@@ -8,7 +8,7 @@ import 'package:todo_clean/domain/repositories/todo_repository.dart';
 
 class TodoRepositoryMock implements TodoRepository {
   final List<TodoEntry> todoEntries = List.generate(
-      100,
+      10,
       (index) => TodoEntry(
           description: 'description $index',
           isDone: false,
