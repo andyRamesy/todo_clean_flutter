@@ -24,10 +24,13 @@ class TodoOverviewLoaded extends StatelessWidget {
           selectedTileColor: colorScheme.onSurfaceVariant,
           iconColor: item.color.color,
           selectedColor: item.color.color,
-          onTap: () => context.pushNamed(
+          onTap: () {
+            context.pushNamed(
             TodoDetailPage.pageConfig.name,
             pathParameters: {'collectionId': item.id.value},
-          ),
+          );
+          print("item id: ${item.id.value}");
+          },
           leading: const Icon(Icons.circle),
           title: Text(item.title),
         );

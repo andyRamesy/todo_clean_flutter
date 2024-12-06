@@ -22,7 +22,7 @@ class TodoEntryItemCubit extends Cubit<TodoEntryItemState> {
   }) : super(ToDoEntryItemLoadingState());
 
   Future<void> fetch() async {
-      print("collectionId: $collectionId , entryId: $entryId");
+      print("collectionId: $collectionId , entryId: ${entryId.value}");
     try {
       final entry = await loadTodoEntry.call(
         TodoEntryIdParam(
