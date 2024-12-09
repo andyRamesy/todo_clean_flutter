@@ -75,8 +75,4 @@ class TodoRepositoryMock implements TodoRepository {
     todoEntries[index] = updatedEntry;
     return Future.delayed(const Duration(milliseconds: 100), () => Right(updatedEntry));
   }
-
-  
-  
-
 }

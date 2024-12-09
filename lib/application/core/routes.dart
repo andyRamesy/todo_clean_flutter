@@ -53,7 +53,7 @@ final routes = GoRouter(
         GoRoute(
           name: HomePage.pageConfig.name,
           path: '$_basePath/:tab',
-          builder: (context, state) => HomePage(
+          builder: (context, state) => HomePageProvider(
             key: state.pageKey,
             tab: state.pathParameters['tab']!,
           ),
@@ -79,7 +79,7 @@ final routes = GoRouter(
                 }
               },
             ),
-          ), 
+          ),
           body: TodoDetailPageProvider(
               collectionId: CollectionId.fromUniqueString(
                   state.pathParameters['collectionsId'] ?? "")),

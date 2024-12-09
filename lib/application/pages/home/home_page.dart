@@ -1,10 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:todo_clean/application/core/page_config.dart';
 import 'package:todo_clean/application/pages/dashboard/dashboard_page.dart';
+import 'package:todo_clean/application/pages/detail/todo_detail_page.dart';
+import 'package:todo_clean/application/pages/home/bloc/navigation_todo_cubit.dart';
 import 'package:todo_clean/application/pages/overview/overview_page.dart';
 import 'package:todo_clean/application/pages/settings/settings_page.dart';
+import 'package:todo_clean/domain/entities/unique_id.dart';
+
+class HomePageProvider extends StatelessWidget {
+  final String tab;
+
+  const HomePageProvider({super.key, required this.tab});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider<NavigationToDoCubit>(
+      create: (_) => NavigationToDoCubit(),
+      child: HomePage(tab: tab),
+    );
+  }
+}
 
 class HomePage extends StatefulWidget {
   final int index;
@@ -77,7 +95,20 @@ class _HomePageState extends State<HomePage> {
         secondaryBody: SlotLayout(config: <Breakpoint, SlotLayoutConfig>{
           Breakpoints.mediumAndUp: SlotLayout.from(
               key: const Key('secondary-body-medium'),
-              builder: AdaptiveScaffold.emptyBuilder)
+              builder: widget.index != 1
+                  ? null
+                  : (_) => BlocBuilder<NavigationToDoCubit,
+                          NavigationToDoCubitState>(
+                        builder: (context, state) {
+                          final selectedId = state.selectedCollectionId;
+                          if (selectedId == null) {
+                            return const Placeholder();
+                          }
+                          return TodoDetailPageProvider(
+                              key: Key(selectedId.value),
+                              collectionId: selectedId);
+                        },
+                      ))
         }),
       )),
     );
