@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:either_dart/either.dart';
 import 'package:todo_clean/domain/entities/todo_collection.dart';
 import 'package:todo_clean/domain/entities/todo_color.dart';
@@ -7,6 +9,8 @@ import 'package:todo_clean/domain/failures/failures.dart';
 import 'package:todo_clean/domain/repositories/todo_repository.dart';
 
 class TodoRepositoryMock implements TodoRepository {
+  final random = Random();
+
   final List<TodoEntry> todoEntries = List.generate(
       10,
       (index) => TodoEntry(
@@ -38,7 +42,7 @@ class TodoRepositoryMock implements TodoRepository {
   Future<Either<Failure, List<EntryId>>> readTodoEntryIds(
       CollectionId collectionId) {
     try {
-      int startIndex = 0;
+      int startIndex = int.parse(collectionId.value);
       final endIndex = startIndex + 10;
       final entryIds = todoEntries
           .sublist(startIndex, endIndex)
