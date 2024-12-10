@@ -101,6 +101,9 @@ class _HomePageState extends State<HomePage> {
                           NavigationToDoCubitState>(
                         builder: (context, state) {
                           final selectedId = state.selectedCollectionId;
+                          final isSecondBodyDisplayed = Breakpoints.mediumAndUp.isActive(context);
+                          context.read<NavigationToDoCubit>().secondBodyHasChanged(isSecondBodyDisplayed : isSecondBodyDisplayed);
+                          
                           if (selectedId == null) {
                             return const Placeholder();
                           }

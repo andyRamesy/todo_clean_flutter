@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:todo_clean/application/pages/detail/todo_detail_page.dart';
 import 'package:todo_clean/application/pages/home/bloc/navigation_todo_cubit.dart';
 import 'package:todo_clean/domain/entities/todo_collection.dart';
-import 'package:todo_clean/main.dart';
 
 class TodoOverviewLoaded extends StatelessWidget {
   final List<TodoCollection> collections;
@@ -32,7 +31,7 @@ class TodoOverviewLoaded extends StatelessWidget {
             context
                 .read<NavigationToDoCubit>()
                 .selectedToDoCollectionChanged(item.id);
-                
+
             if (Breakpoints.small.isActive(context)) {
               context.pushNamed(
                 TodoDetailPage.pageConfig.name,

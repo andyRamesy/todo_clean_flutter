@@ -42,7 +42,7 @@ class TodoRepositoryMock implements TodoRepository {
   Future<Either<Failure, List<EntryId>>> readTodoEntryIds(
       CollectionId collectionId) {
     try {
-      int startIndex = int.parse(collectionId.value);
+      int startIndex = 0;
       final endIndex = startIndex + 10;
       final entryIds = todoEntries
           .sublist(startIndex, endIndex)

@@ -10,4 +10,13 @@ class NavigationToDoCubit extends Cubit<NavigationToDoCubitState> {
   void selectedToDoCollectionChanged(CollectionId collectionId) {
     emit(NavigationToDoCubitState(selectedCollectionId: collectionId));
   }
+
+  void secondBodyHasChanged({required bool isSecondBodyDisplayed}) {
+    if (state.isSecondBodyDisplayed != isSecondBodyDisplayed) {
+      emit(NavigationToDoCubitState(
+        isSecondBodyDisplayed: isSecondBodyDisplayed,
+        selectedCollectionId: state.selectedCollectionId,
+      ));
+    }
+  }
 }
